@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hi, {{ current_user.username }}!</h1>
+
+   	
+   	<form action="" method="post" novalidate>
+   		{{ form.hidden_tag() }}
+	    <p>
+	    	{{ form.item.label }}
+	    	{{ form.item(size=32) }}
+	    </p>	
+	    <p>
+	    	{{ form.date.label }}
+	    	{{ form.date() }}
+	    </p>
+	    <p>
+	    	{{ form.priority.label }}
+	    	{{ form.priority(size=15) }}
+	    	{{ form.submit() }}
+	    </p>
+	    <h3> Your TO DO list: </h3>
+	    
+	</form>
+    <form action="" method="post" novalidate>
+    	{{ remove.hidden_tag() }}
+
+    <p>{{ remove.save() }}</p>
+    <div><table>
+    	<tr>
+    		<th>Completed?</th>
+    		<th>In Progress?</th>
+    		<th>Item</th>
+    		<th>Date</th>
+    		<th>Priority</th>
+    	</tr>
+
+    	{% for item in items %}
+    	
+    	<tr>
+    		<td><input type="checkbox" name="myCheckBox" value="{{ item.id }}"></td>
+    		{% if item.inProgress %}
+    			<td><input type="checkbox" name="inProgress" value="{{ item.id }}" checked></td>
+    		{% else %}
+    			<td><input type="checkbox" name="inProgress" value="{{ item.id }}"></td>
+    		{% endif %}
+    		<td> {{ item.item }}</td>
+    		<td> {{ item.date }}</td>
+    		<td>{{ item.priority }}</td>
+    	</tr>
+    	
+    	{% endfor %}
+    </table></div>
+    
+   
+	</form>
+{% endblock %}
